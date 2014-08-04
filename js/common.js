@@ -55,7 +55,7 @@ var index = {
         $("footer a").click(function(event) {
             var key = $(this).data("type");
             if (key === "wx") {
-              $("footer img").show();
+              $("footer img").slideToggle();
               return false;
             }
 

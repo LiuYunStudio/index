@@ -25,8 +25,16 @@ var index = {
             var scrollTop = $(this).scrollTop();
             if (scrollTop > 360) {
                 $(".nav").addClass("stuck");
+                $(".nav-button").animate({"opacity": "1"}, {
+                  queue: false,
+                  duration: 300
+                });
             } else {
                 $(".nav").removeClass("stuck");
+                $(".nav-button").animate({"opacity": "0"}, {
+                  queue: false,
+                  duration: 300
+                });
             }
         });
     },
@@ -37,8 +45,33 @@ var index = {
                         percentage = $progresse.data("percentage");
                 $progresse.find(".bar").width($progresse.width() / 100 * percentage).html(percentage + "% &nbsp;");
             });
-            
+
             $("#skills").unbind();
+        });
+
+        this._share();
+    },
+    _share: function () {
+        $("footer a").click(function(event) {
+            var key = $(this).data("type");
+            if (key === "wx") {
+              $("footer img").show();
+              return false;
+            }
+
+
+            var title = encodeURIComponent("流云工作室 - 持续为客户提供一流的云服务"),
+                    url = "http://liuyun.io/",
+                    pic = "http://liuyun.io/images/logo.png";
+            var urls = {};
+            urls.tencent = "http://share.v.t.qq.com/index.php?c=share&a=index&title=" + title +
+                    "&url=" + url + "&pic=" + pic;
+            urls.weibo = "http://v.t.sina.com.cn/share/share.php?title=" +
+                    title + "&url=" + url + "&pic=" + pic;
+            urls.googleplus = "https://plus.google.com/share?url=" + url;
+            urls.twitter = "https://twitter.com/intent/tweet?status=" + title + " " + url;
+            window.open(urls[key], "_blank", "top=100,left=200,width=648,height=618");
+			      event.preventDefault();
         });
     }
 };

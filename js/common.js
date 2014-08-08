@@ -20,25 +20,55 @@
  * @version 1.0.0.0, July 24, 2014
  */
 var index = {
+    _MEDIAWIDTH: 630,
+    _MINSCROLLTOP: 360,
     headerScroll: function() {
         $(window).scroll(function() {
             var scrollTop = $(this).scrollTop();
-            if (scrollTop > 360) {
+            if (scrollTop > index._MINSCROLLTOP) {
                 $(".nav").addClass("stuck");
-                $(".nav-button").animate({"opacity": "1"}, {
-                  queue: false,
-                  duration: 300
-                });
+
+                if (index._WINDOWW > index._MEDIAWIDTH) {
+                    $(".nav-button").animate({"opacity": "1"}, {
+                        queue: false,
+                        duration: 300
+                    });
+                }
+
+                if (scrollTop <= index._BUSINESSH) {
+                    $(".nav li a").removeClass("current");
+                    $(".nav li a:eq(1)").addClass("current");
+                } else if (scrollTop > index._BUSINESSH && scrollTop <= index._CASESH) {
+                    $(".nav li a").removeClass("current");
+                    $(".nav li a:eq(2)").addClass("current");
+                } else if (scrollTop > index._CASESH && scrollTop <= index._ABOUTUSH) {
+                    $(".nav li a").removeClass("current");
+                    $(".nav li a:eq(3)").addClass("current");
+                } else if (scrollTop > index._ABOUTUSH) {
+                    $(".nav li a").removeClass("current");
+                    $(".nav li a:eq(4)").addClass("current");
+                }
             } else {
+                $(".nav li a").removeClass("current");
+                $(".nav li a:eq(0)").addClass("current");
+
                 $(".nav").removeClass("stuck");
-                $(".nav-button").animate({"opacity": "0"}, {
-                  queue: false,
-                  duration: 300
-                });
+
+                if (index._WINDOWW > index._MEDIAWIDTH) {
+                    $(".nav-button").animate({"opacity": "0"}, {
+                        queue: false,
+                        duration: 300
+                    });
+                }
             }
         });
     },
     init: function() {
+        index._BUSINESSH = 240 + 180 + $("#business").height();
+        index._CASESH = $("#cases").height() + index._BUSINESSH;
+        index._ABOUTUSH = $("#aboutUs").height() + index._CASESH;
+        index._WINDOWW = $(window).width();
+
         $("#skills").mouseover(function() {
             $(this).find(".progress").each(function() {
                 var $progresse = $(this),
@@ -49,14 +79,42 @@ var index = {
             $("#skills").unbind();
         });
 
+        $(".nav a").click(function(event) {
+            var $it = $(this),
+                    scrollTop = 0;
+
+            switch ($it.attr("href")) {
+                case "#top":
+                    break;
+                case "#business":
+                    scrollTop = index._MINSCROLLTOP + 10;
+                    break;
+                case "#cases":
+                    scrollTop = index._BUSINESSH + 340;
+                    break;
+                case "#aboutUs":
+                    scrollTop = index._CASESH + 440;
+                    break;
+                case "#contacts":
+                    scrollTop = index._ABOUTUSH + 500;
+                    break;
+                default:
+                    break;
+            }
+
+            $('html, body').animate({scrollTop: scrollTop + 'px'}, 800);
+            event.preventDefault();
+            return false;
+        });
+
         this._share();
     },
-    _share: function () {
+    _share: function() {
         $("footer a").click(function(event) {
             var key = $(this).data("type");
             if (key === "wx") {
-              $("footer img").slideToggle();
-              return false;
+                $("footer img").slideToggle();
+                return false;
             }
 
 
@@ -71,13 +129,13 @@ var index = {
             urls.googleplus = "https://plus.google.com/share?url=" + url;
             urls.twitter = "https://twitter.com/intent/tweet?status=" + title + " " + url;
             window.open(urls[key], "_blank", "top=100,left=200,width=648,height=618");
-			      event.preventDefault();
+            event.preventDefault();
         });
     }
 };
 
 $(document).ready(function() {
-    index.headerScroll();
     index.init();
+    index.headerScroll();
     $(window).scroll();
 });

@@ -538,6 +538,30 @@ section {
     margin-bottom: 40px;
 }
 
+#cases li {
+    text-align: left;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#cases li:last-child {
+    margin-bottom: 0;
+}
+
+
+#cases li.even {
+    text-align: right;
+}
+
+#cases li > b {
+    color: #7f4d8c;
+    font-size: 18px;
+}
+
+#cases li > span {
+    color: #7f4d8c;
+}
+
 .about-item-img {
     position: relative;
     margin-bottom: 40px;

@@ -701,8 +701,12 @@ section {
 }
 
 #contacts .contacts-item {
-    width: 50%;
+    width: 33%;
     float: left;
+    margin-top: 30%;
+}
+
+#contacts .contacts-item:last-child {
     margin-top: 50px;
 }
 /* end main */
@@ -762,6 +766,16 @@ footer i.gray {
 
     #skills {
         width: 100%;
+    }
+    
+    #contacts .contacts-item {
+        float: none;
+        margin-top: 10px;
+        width: auto;
+    }
+    
+    #contacts .contacts-item:last-child {
+        margin-top: 10px;
     }
 }
 
@@ -827,11 +841,5 @@ footer i.gray {
 
     .business-content {
         background-image: none;
-    }
-
-    #contacts .contacts-item {
-        float: none;
-        margin-top: 10px;
-        width: auto;
     }
 }

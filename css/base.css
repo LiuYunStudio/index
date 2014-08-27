@@ -783,7 +783,7 @@ body > a > img {
     }
 }
 
-@media (max-width: 630px) {
+@media (max-width: 650px) {
     .header h1 > img {
         display: block;
         margin: 0 auto;

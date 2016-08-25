@@ -68,6 +68,9 @@ var index = {
         index._CASESH = $("#cases").height() + index._BUSINESSH;
         index._ABOUTUSH = $("#aboutUs").height() + index._CASESH;
         index._WINDOWW = $(window).width();
+        
+        $('#copyrightYear').text((new Date()).getFullYear());
+        $('#coYear').text((new Date()).getFullYear() - 2010);
 
         $("#skills").mouseover(function() {
             $(this).find(".progress").each(function() {
